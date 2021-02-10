@@ -14,35 +14,58 @@ import java.util.Date;
 import java.util.jar.Attributes.Name;
 import javax.swing.JOptionPane;
 import java.awt.Color;
+import main.java.sa.gov.nic.Entity.Applicant;
+import main.java.sa.gov.nic.db.AfisBroker;
 public class Form extends javax.swing.JFrame {
 
-    String name = "";
-    String ref;
-    String natonality;
-    String passport_num;
+
 Toolkit toolkit = getToolkit();
   
+byte[][] images = new byte[11][];
  
     public Form(String ref) {
-        
+    
         Launch.l.setVisible(false);
         initComponents();
         showImage(pos);
         showDate();
-        this.ref=ref;
-        this.natonality="SAU";
-        this.passport_num="1234";
+ 
+        long reference = 0;
+        Applicant a = null ;
+        try{
+         reference = Long.parseLong(ref.trim());
+        }catch (Exception e)
+        {
+           JOptionPane.showMessageDialog(this, "Wrong Ref#");
+           
+           return;
+        }
         
+        a = AfisBroker.getApplicants(reference);
         // fetch data from DB 
-        this.name = "anoud";
-        applicantName.setText(name);
-        applicantRef.setText(ref);
+        applicantName.setText(a.getName());
+        applicantRef.setText(a.getRef()+"");
         
-        applicantNationality.setText(natonality);
-        applicantPassport.setText(passport_num);
+        applicantNationality.setText(a.getNatonality());
+        applicantPassport.setText(a.getPassport_num());
+        
+        
+        images[0]= a.getFaceimage();
+        images[1]= a.getRthumb();
+        images[2]= a.getRindex();
+        images[3]= a.getRmiddle();
+        images[4]= a.getRring();
+        images[5]= a.getRmiddle();
+        images[6]= a.getLthumb();
+        images[7]= a.getLindex();
+        images[8]= a.getLmiddle();
+        images[9]= a.getLring();
+        images[10]=a.getLlittle();
+        
         
        
     }
+    
     
     void showDate(){
     
@@ -69,15 +92,15 @@ public String [] getImages() {
     
 public void showImage(int index)
     {
-        String[] imagesList = getImages();
+       /* String[] imagesList = getImages();
 
         String imageName = imagesList[index];
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/res/"+imageName));
 
         Image image = icon.getImage().getScaledInstance(jLabel_imge.getWidth(), jLabel_imge.getHeight(), Image.SCALE_REPLICATE);
-
-        jLabel_imge.setIcon(new ImageIcon(image));
+*/
+        jLabel_imge.setIcon(new ImageIcon(images[index]));
     }
 
  
@@ -304,7 +327,7 @@ public void showImage(int index)
     }//GEN-LAST:event_FirstActionPerformed
 
     private void First1_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_First1_nextActionPerformed
-        pos= (pos +1) % getImages().length;
+        pos= (pos +1) % images.length;
        
         showImage(pos);
     }//GEN-LAST:event_First1_nextActionPerformed
