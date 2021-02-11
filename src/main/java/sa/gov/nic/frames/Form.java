@@ -16,10 +16,14 @@ import javax.swing.JOptionPane;
 import java.awt.Color;
 import main.java.sa.gov.nic.Entity.Applicant;
 import main.java.sa.gov.nic.db.AfisBroker;
+import org.jnbis.api.Jnbis;
+
 public class Form extends javax.swing.JFrame {
 
 
 Toolkit toolkit = getToolkit();
+
+    int pos = 0;
   
 byte[][] images = new byte[11][];
  
@@ -27,8 +31,7 @@ byte[][] images = new byte[11][];
     
         Launch.l.setVisible(false);
         initComponents();
-        showImage(pos);
-        showDate();
+
  
         long reference = 0;
         Applicant a = null ;
@@ -42,25 +45,38 @@ byte[][] images = new byte[11][];
         }
         
         a = AfisBroker.getApplicants(reference);
-        // fetch data from DB 
-        applicantName.setText(a.getName());
-        applicantRef.setText(a.getRef()+"");
-        
-        applicantNationality.setText(a.getNatonality());
-        applicantPassport.setText(a.getPassport_num());
-        
-        
-        images[0]= a.getFaceimage();
-        images[1]= a.getRthumb();
-        images[2]= a.getRindex();
-        images[3]= a.getRmiddle();
-        images[4]= a.getRring();
-        images[5]= a.getRmiddle();
-        images[6]= a.getLthumb();
-        images[7]= a.getLindex();
-        images[8]= a.getLmiddle();
-        images[9]= a.getLring();
-        images[10]=a.getLlittle();
+        // fetch data from DB
+
+        System.out.println(reference);
+        try {
+
+            System.out.println(a.getRef());
+
+
+            applicantName.setText(a.getName());
+            applicantRef.setText(a.getRef() + "");
+
+            applicantNationality.setText(a.getNatonality());
+            applicantPassport.setText(a.getPassport_num());
+
+
+            images[0] = a.getFaceimage();
+            images[1] = Jnbis.wsq().decode(a.getRthumb()).toJpg().asByteArray();
+            images[2] = Jnbis.wsq().decode(a.getRindex()).toJpg().asByteArray();
+            images[3] = a.getRmiddle();
+            images[4] = a.getRring();
+            images[5] = a.getRmiddle();
+            images[6] = a.getLthumb();
+            images[7] = a.getLindex();
+            images[8] = a.getLmiddle();
+            images[9] = a.getLring();
+            images[10] = a.getLlittle();
+
+            showImage(pos);
+        }catch ()
+        {
+            // what to do ?
+        }
         
         
        
@@ -74,9 +90,6 @@ byte[][] images = new byte[11][];
     dateLab.setText(s.format(d));
     
     }
-    
-    
-    int pos = 0;
 
 public String [] getImages() {
  
@@ -113,13 +126,6 @@ public void showImage(int index)
         jLabel1 = new javax.swing.JLabel();
         dateLab = new javax.swing.JLabel();
         First1_next = new javax.swing.JButton();
-        try {
-            First =(javax.swing.JButton)java.beans.Beans.instantiate(getClass().getClassLoader(), "main/java/sa/gov/nic/frames.form_First");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
         jLabel_imge = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -160,11 +166,6 @@ public void showImage(int index)
             }
         });
 
-        First.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FirstActionPerformed(evt);
-            }
-        });
 
         jLabel_imge.setBorder(javax.swing.BorderFactory.createCompoundBorder());
 
@@ -243,7 +244,6 @@ public void showImage(int index)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(463, 463, 463)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(First, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBACK, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +264,6 @@ public void showImage(int index)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(First, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,14 +320,12 @@ public void showImage(int index)
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FirstActionPerformed
-        pos=0;
-        showImage(pos);
-    }//GEN-LAST:event_FirstActionPerformed
+  //GEN-LAST:event_FirstActionPerformed
 
     private void First1_nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_First1_nextActionPerformed
-        pos= (pos +1) % images.length;
-       
+        //pos= (pos +1) % images.length;
+
+        pos++;
         showImage(pos);
     }//GEN-LAST:event_First1_nextActionPerformed
 
@@ -348,7 +345,6 @@ public void showImage(int index)
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton First;
     private javax.swing.JButton First1_next;
     private javax.swing.JLabel applicantName;
     private javax.swing.JLabel applicantNationality;

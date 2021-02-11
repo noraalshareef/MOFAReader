@@ -17,7 +17,7 @@ public class AfisBroker {
     
     
     public static String sql = "select REF_NUMBER, FACIAL_PHOTO, RTHUMB, RINDEX ,RMIDDLE,RRING,RLITTLE, LTHUMB,LINDEX,LMIDDLE,LRING,LLITTLE,NAME,PASSPORT_NUMBER,NATIONALITY, LOCATION_ID , AGENT_ID ,\n" +
-"       RECEIVE_TIME from mofa.MOFA_ENROLLMENT with (nolock) where REF_NUMBER = ?"; 
+"       RECEIVE_TIME from BIO_MOFA.mofa.MOFA_ENROLLMENT with (nolock) where REF_NUMBER = ?";
     
     public static Connection getAFISERConnection() throws SQLException {
 
@@ -59,17 +59,23 @@ public static Applicant getApplicants(long ref) {
 
             try {
                 stmt = connection.prepareStatement(sql);
-                
+
+                System.out.println(" step 1 ");
                 stmt.setLong(1, ref);
 
+                System.out.println(" step 2 ");
                 rs = stmt.executeQuery();
 
+                System.out.println(" step 3 ");
+
                 if (rs.next()) {
+                    System.out.println(" step 4 ");
                     Applicant a = new Applicant(rs.getLong("REF_NUMBER"), rs.getBytes("FACIAL_PHOTO"),
        rs.getBytes("RTHUMB"), rs.getBytes("RINDEX"), rs.getBytes("RMIDDLE"), rs.getBytes("RRING"), rs.getBytes("RLITTLE"),
        rs.getBytes("LTHUMB"), rs.getBytes("LINDEX"), rs.getBytes("LMIDDLE"), rs.getBytes("LRING"), rs.getBytes("LLITTLE")
-     , rs.getString("NAME"),rs.getString("NATIONALITY"),rs.getString("PASSPORT_NUMBER"),rs.getString("LOCATION_ID"),rs.getString("AGENT_ID"),rs.getDate("RECEVIE_TIME").toString());
+     , rs.getString("NAME"),rs.getString("NATIONALITY"),rs.getString("PASSPORT_NUMBER"),rs.getString("LOCATION_ID"),rs.getString("AGENT_ID"),rs.getDate("RECEIVE_TIME").toString());
 
+                    return a;
                 }
 
             } finally {
@@ -78,6 +84,7 @@ public static Applicant getApplicants(long ref) {
      
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println(Arrays.asList(e.getStackTrace()));
         }
         return null;
