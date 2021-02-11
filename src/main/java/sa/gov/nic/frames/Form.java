@@ -73,7 +73,7 @@ byte[][] images = new byte[11][];
             images[10] = a.getLlittle();
 
             showImage(pos);
-        }catch ()
+        }catch (Exception e)
         {
             // what to do ?
         }
