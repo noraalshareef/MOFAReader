@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.java.sa.gov.nic.db;
+package sa.gov.nic.db;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import main.java.sa.gov.nic.Entity.Applicant;
+import sa.gov.nic.Entity.Applicant;
 /**
  *
  * @author anoud
@@ -47,8 +47,8 @@ public class AfisBroker {
                 e.printStackTrace();
             }
     }
-public static Applicant getApplicants(long ref) {
-        try {
+public static Applicant getApplicants(long ref)  throws SQLException{
+
  
             Connection connection = getAFISERConnection();
 
@@ -83,10 +83,6 @@ public static Applicant getApplicants(long ref) {
             }
      
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(Arrays.asList(e.getStackTrace()));
-        }
         return null;
     }
 }

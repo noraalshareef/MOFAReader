@@ -1,0 +1,43 @@
+apply plugin: 'java'
+apply plugin : 'application'
+
+
+
+
+buildscript {
+    repositories {
+        flatDir {
+            dirs "./libs"
+        }
+    }
+}
+
+mainClassName ='sa.gov.nic.frames.Launch';
+
+defaultTasks 'clean', 'build' , 'run'
+def generatedSrc = "$buildDir/generated-src"
+version = '2021.02.1'
+
+task create_dirs {
+    doLast {
+        sourceSets*.java.srcDirs*.each { it.mkdirs() }
+        sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+    }
+}
+
+sourceSets
+        {
+            main.java.srcDirs += "$generatedSrc"
+        }
+
+dependencies {
+
+    compile fileTree(dir: 'libs/', include: '*.jar')
+
+}
+
+/*task (run , dependsOn : 'classes' , type: JavaExec)
+        {
+            main = 'main.java.sa.gov.nic.frames.Launch';
+            classpath = sourceSets.main.runTimeClasspath
+        }*/

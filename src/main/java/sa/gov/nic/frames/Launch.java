@@ -1,14 +1,18 @@
-package main.java.sa.gov.nic.frames;
+package sa.gov.nic.frames;
+
+import sa.gov.nic.Entity.Applicant;
 
 import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Launch extends javax.swing.JFrame {
     
     public static Launch l;
+    Applicant a = null ;
 
     public Launch() {
         initComponents();
@@ -106,11 +110,36 @@ Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLoginActionPerformed
-        String ref =refFeild.getText();
-        
+       final String ref =refFeild.getText();
+
+        long reference = 0;
+
+        try{
+            reference = Long.parseLong(ref.trim());
+        }catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Wrong Ref#");
+
+            return;
+        }
+
+        try {
+            a = sa.gov.nic.db.AfisBroker.getApplicants(reference);
+        }catch ( SQLException s)
+        {
+            JOptionPane.showMessageDialog(this, "Cannot connect to db!!");
+            return;
+        }
+
+        if(a==null) {
+            JOptionPane.showMessageDialog(this, "No Applicant found!");
+            return;
+        }
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Form(ref).setVisible(true);  } });
+                new Form(a).setVisible(true);
+               } });
     }//GEN-LAST:event_jbtnLoginActionPerformed
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed

@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MOFAReader.iml" filepath="$PROJECT_DIR$/MOFAReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MOFAReader.iml" filepath="$PROJECT_DIR$/.idea/modules/MOFAReader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MOFAReader.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MOFAReader.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MOFAReader.test.iml" filepath="$PROJECT_DIR$/.idea/modules/MOFAReader.test.iml" />
     </modules>
   </component>
 </project>
