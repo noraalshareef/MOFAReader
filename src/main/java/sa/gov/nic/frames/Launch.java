@@ -1,145 +1,222 @@
 package sa.gov.nic.frames;
 
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import sa.gov.nic.Entity.Applicant;
+import sa.gov.nic.db.AfisBroker;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.event.WindowEvent;
-import java.awt.Toolkit;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Launch extends javax.swing.JFrame {
-    
+
     public static Launch l;
-    Applicant a = null ;
+    Applicant a = null;
 
     public Launch() {
         initComponents();
-    }
-public void close (){
-WindowEvent winClosingEvent = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
-Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
 
-}
-   
+
+    }
+
+    public void close() {
+        WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jbtnLogin = new javax.swing.JButton();
-        refFeild = new javax.swing.JTextField();
-        jbtnExit = new javax.swing.JButton();
+        jPanel1 = new JPanel();
+        jbtnLogin = new JButton();
+        refFeild = new JTextField();
+        jbtnExit = new JButton();
+        refOp = new JRadioButton("search by REFERENCE   ");
+        passOp = new JRadioButton("search by PASSPORT  ");
+        passFeild = new JTextField();
+        nationalitylabel = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(102, 102, 255));
-        setForeground(java.awt.Color.pink);
+        nationality = new JTextField();
+        ButtonGroup group = new ButtonGroup();
 
-        jPanel1.setBackground(new java.awt.Color(243, 234, 234));
-        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        group.add(passOp);
+        group.add(refOp);
 
-        jLabel7.setFont(new java.awt.Font("Candara Light", 1, 48)); // NOI18N
-        jLabel7.setText("Ref #");
 
-        jbtnLogin.setBackground(new java.awt.Color(231, 226, 226));
-        jbtnLogin.setFont(new java.awt.Font("Candara Light", 1, 36)); // NOI18N
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new Color(102, 102, 255));
+        setForeground(Color.pink);
+        nationalitylabel.setFont(new java.awt.Font("Candara Light", 1, 36)); // NOI18N
+        nationalitylabel.setText("NATIONALITY");
+        jPanel1.setBackground(new Color(243, 234, 234));
+        jPanel1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+////
+        refOp.setSelected(true);
+        refOp.setFont(new Font("Candara Light", 1, 36));
+
+        passOp.setSelected(false);
+        passOp.setFont(new Font("Candara Light", 1, 36));
+
+        //nationalitylabel.set
+//////////
+        jbtnLogin.setBackground(new Color(231, 226, 226));
+        jbtnLogin.setFont(new Font("Candara Light", 1, 36)); // NOI18N
         jbtnLogin.setText("Search");
-        jbtnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbtnLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jbtnLoginActionPerformed(evt);
             }
         });
 
-        refFeild.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        refFeild.setFont(new Font("Tahoma", 1, 36)); // NOI18N
 
-        jbtnExit.setBackground(new java.awt.Color(231, 226, 226));
-        jbtnExit.setFont(new java.awt.Font("Candara Light", 1, 34)); // NOI18N
+        jbtnExit.setBackground(new Color(231, 226, 226));
+        jbtnExit.setFont(new Font("Candara Light", 1, 34)); // NOI18N
         jbtnExit.setText("Exit");
-        jbtnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jbtnExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jbtnExitActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
+        //////
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(445, 445, 445)
-                .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(295, 295, 295)
-                .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 478, Short.MAX_VALUE)
-                .addComponent(jLabel7)
-                .addGap(80, 80, 80)
-                .addComponent(refFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(773, 773, 773))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(435, 435, 435)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(refFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 469, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(201, 201, 201))
-        );
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(445, 445, 445)///445
+                                .addComponent(jbtnLogin, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)
+                                .addGap(295, 295, 295)
+                                .addComponent(jbtnExit, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))//
+                        .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(100, 200, 200)
+                                .addComponent(refOp)
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                                .addGap(30, 55, 55)
+                                .addComponent(refFeild, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE))
+
+                        .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(100, 200, 200)
+                                .addComponent(passOp)
+                                .addGap(30, 87, 87)
+                                .addComponent(passFeild, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE))
+
+                        .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(100, 370, 395)
+                                .addComponent(nationalitylabel)
+                                .addGap(0, 50, 52)
+                                .addComponent(nationality, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE)));
+                ;
+        ///////
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(435, 435, 435)
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+
+                                        .addComponent(refOp)
+                                        .addComponent(refFeild, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+                                .addGap(20, 50, 50)
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+                                        .addComponent(passOp)
+                                    //    .addGap(20, 50, 50)
+                                        .addComponent(passFeild, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(20, 50, 50))
+                                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                               // .addGap(20, 50, 50)
+                                        .addComponent(nationalitylabel)
+
+                                        .addComponent(nationality, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(20, 50, 50)
+                                       )
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 469, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jbtnExit, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jbtnLogin, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+                                        .addGap(201, 201, 201))
+                        ));
+
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1798, 1310));
+        setSize(new Dimension(1798, 1310));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnLoginActionPerformed
-       final String ref =refFeild.getText();
+    private void jbtnLoginActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jbtnLoginActionPerformed
 
-        long reference = 0;
 
-        try{
-            reference = Long.parseLong(ref.trim());
-        }catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(this, "Wrong Ref#");
+       if(refOp.isSelected()){
 
-            return;
-        }
+           final String ref = refFeild.getText();
 
-        try {
-            a = sa.gov.nic.db.AfisBroker.getApplicants(reference);
-        }catch ( SQLException s)
-        {
-            JOptionPane.showMessageDialog(this, "Cannot connect to db!!");
-            return;
-        }
+           long reference = 0;
 
-        if(a==null) {
+           try {
+               reference = Long.parseLong(ref.trim());
+           } catch (Exception e) {
+               JOptionPane.showMessageDialog(this, "Wrong Ref#");
+
+               return;
+           }
+
+           try {
+               a = AfisBroker.getApplicants(reference);
+           } catch (SQLException s) {
+               JOptionPane.showMessageDialog(this, "Cannot connect to db!!");
+               return;
+           }
+
+       }
+       else if (passOp.isSelected())
+       {
+           final String passport = passFeild.getText();
+           final String nationalityText = nationality.getText();
+
+
+           try {
+               a = AfisBroker.getApplicants(passport,nationalityText);
+           } catch (SQLException s) {
+               JOptionPane.showMessageDialog(this, "Cannot connect to db!!");
+               return;
+           }
+       }
+       else
+       {
+           JOptionPane.showMessageDialog(this, "please choose");
+           return;
+       }
+
+
+
+        if (a == null) {
             JOptionPane.showMessageDialog(this, "No Applicant found!");
             return;
         }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Form(a).setVisible(true);
-               } });
+            }
+        });
     }//GEN-LAST:event_jbtnLoginActionPerformed
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
@@ -150,7 +227,7 @@ Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -174,10 +251,14 @@ Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-              l.setVisible(true);
-          }
-        });
+                                            public void run() {
+                                                l.setVisible(true);
+                                            }
+                                        }
+
+        );//
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -186,12 +267,18 @@ Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnLogin;
     private javax.swing.JTextField refFeild;
+    private javax.swing.JTextField passFeild;
+    private javax.swing.JRadioButton refOp;
+    private javax.swing.JRadioButton passOp;
+    private javax.swing.JLabel nationalitylabel;
+    private javax.swing.JTextField nationality;
+    private javax.swing.JLabel jLabel;
     // End of variables declaration//GEN-END:variables
 
-private void systemExit(){
-WindowEvent winClosing = new WindowEvent (this , WindowEvent.WINDOW_CLOSING);
+    private void systemExit() {
+        WindowEvent winClosing = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
 
 
-}
+    }
 
 }

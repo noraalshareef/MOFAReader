@@ -16,9 +16,11 @@ import sa.gov.nic.Entity.Applicant;
 public class AfisBroker {
     
     
-    public static String sql = "select REF_NUMBER, FACIAL_PHOTO, RTHUMB, RINDEX ,RMIDDLE,RRING,RLITTLE, LTHUMB,LINDEX,LMIDDLE,LRING,LLITTLE,NAME,PASSPORT_NUMBER,NATIONALITY, LOCATION_ID , AGENT_ID ,\n" +
+    public static String refSql = "select REF_NUMBER, FACIAL_PHOTO, RTHUMB, RINDEX ,RMIDDLE,RRING,RLITTLE, LTHUMB,LINDEX,LMIDDLE,LRING,LLITTLE,NAME,PASSPORT_NUMBER,NATIONALITY, LOCATION_ID , AGENT_ID ,\n" +
 "       RECEIVE_TIME from BIO_MOFA.mofa.MOFA_ENROLLMENT with (nolock) where REF_NUMBER = ?";
-    
+
+    public static String passSql = "select REF_NUMBER, FACIAL_PHOTO, RTHUMB, RINDEX ,RMIDDLE,RRING,RLITTLE, LTHUMB,LINDEX,LMIDDLE,LRING,LLITTLE,NAME,PASSPORT_NUMBER,NATIONALITY, LOCATION_ID , AGENT_ID ,\n" +
+            "       RECEIVE_TIME from BIO_MOFA.mofa.MOFA_ENROLLMENT with (nolock) where PASSPORT_NUMBER = ? and NATIONALITY=?";
     public static Connection getAFISERConnection() throws SQLException {
 
         String afiserConnection = "jdbc:sqlserver://10.0.71.95:1433;databasName=Biometrics", afiserDBUsername = "Mofa_reader", afiserDBPassword = "$Mof@321";
@@ -58,7 +60,7 @@ public static Applicant getApplicants(long ref)  throws SQLException{
             ResultSet rs = null;
 
             try {
-                stmt = connection.prepareStatement(sql);
+                stmt = connection.prepareStatement(refSql);
 
                 System.out.println(" step 1 ");
                 stmt.setLong(1, ref);
@@ -85,5 +87,41 @@ public static Applicant getApplicants(long ref)  throws SQLException{
 
         return null;
     }
+    ////////////////////
+    public static Applicant getApplicants(String passport,String nationality)  throws SQLException{
+
+
+        Connection connection = getAFISERConnection();
+
+        //AGENT_ID='SVTS\\MobileAppAdmin' and PASSPORT_NUMBER='NIC'\n";
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            stmt = connection.prepareStatement(passSql);
+
+            stmt.setString(1, passport);
+            stmt.setString(2, nationality);
+            rs = stmt.executeQuery();
+
+
+            if (rs.next()) {
+                Applicant a = new Applicant(rs.getLong("REF_NUMBER"), rs.getBytes("FACIAL_PHOTO"),
+                        rs.getBytes("RTHUMB"), rs.getBytes("RINDEX"), rs.getBytes("RMIDDLE"), rs.getBytes("RRING"), rs.getBytes("RLITTLE"),
+                        rs.getBytes("LTHUMB"), rs.getBytes("LINDEX"), rs.getBytes("LMIDDLE"), rs.getBytes("LRING"), rs.getBytes("LLITTLE")
+                        , rs.getString("NAME"),rs.getString("NATIONALITY"),rs.getString("PASSPORT_NUMBER"),rs.getString("LOCATION_ID"),rs.getString("AGENT_ID"),rs.getDate("RECEIVE_TIME").toString());
+
+                return a;
+            }
+
+        } finally {
+            close(rs, stmt, connection);
+        }
+
+
+        return null;
+    }
+
 }
 

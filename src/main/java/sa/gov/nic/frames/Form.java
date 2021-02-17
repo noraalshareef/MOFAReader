@@ -1,7 +1,7 @@
 package sa.gov.nic.frames;
 
+import java.awt.*;
 import java.io.File;
-import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import javax.swing.*;
@@ -298,6 +298,7 @@ public void showImage(int index)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        setSize(new Dimension(1798, 1310));
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
