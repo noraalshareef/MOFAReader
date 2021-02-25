@@ -16,14 +16,12 @@ import sa.gov.nic.Entity.Applicant;
 public class AfisBroker {
     
     
-    public static String refSql = "select REF_NUMBER, FACIAL_PHOTO, RTHUMB, RINDEX ,RMIDDLE,RRING,RLITTLE, LTHUMB,LINDEX,LMIDDLE,LRING,LLITTLE,NAME,PASSPORT_NUMBER,NATIONALITY, LOCATION_ID , AGENT_ID ,\n" +
-"       RECEIVE_TIME from BIO_MOFA.mofa.MOFA_ENROLLMENT with (nolock) where REF_NUMBER = ?";
+    public static String refSql = "";
 
-    public static String passSql = "select REF_NUMBER, FACIAL_PHOTO, RTHUMB, RINDEX ,RMIDDLE,RRING,RLITTLE, LTHUMB,LINDEX,LMIDDLE,LRING,LLITTLE,NAME,PASSPORT_NUMBER,NATIONALITY, LOCATION_ID , AGENT_ID ,\n" +
-            "       RECEIVE_TIME from BIO_MOFA.mofa.MOFA_ENROLLMENT with (nolock) where PASSPORT_NUMBER = ? and NATIONALITY=?";
+    public static String passSql = "";
     public static Connection getAFISERConnection() throws SQLException {
 
-        String afiserConnection = "jdbc:sqlserver://10.0.71.95:1433;databasName=Biometrics", afiserDBUsername = "Mofa_reader", afiserDBPassword = "$Mof@321";
+        String afiserConnection = "";
 
         return DriverManager.getConnection(afiserConnection, afiserDBUsername, afiserDBPassword);
 

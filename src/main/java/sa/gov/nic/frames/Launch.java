@@ -14,6 +14,8 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
+import static java.awt.Toolkit.*;
+
 public class Launch extends javax.swing.JFrame {
 
     public static Launch l;
@@ -27,7 +29,7 @@ public class Launch extends javax.swing.JFrame {
 
     public void close() {
         WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+        getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
 
     }
 
@@ -54,21 +56,21 @@ public class Launch extends javax.swing.JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBackground(new Color(102, 102, 255));
         setForeground(Color.pink);
-        nationalitylabel.setFont(new java.awt.Font("Candara Light", 1, 36)); // NOI18N
+        nationalitylabel.setFont(new java.awt.Font("Candara Light", 1, 24)); // NOI18N
         nationalitylabel.setText("NATIONALITY");
         jPanel1.setBackground(new Color(243, 234, 234));
         jPanel1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 ////
         refOp.setSelected(true);
-        refOp.setFont(new Font("Candara Light", 1, 36));
+        refOp.setFont(new Font("Candara Light", 1, 24));
 
         passOp.setSelected(false);
-        passOp.setFont(new Font("Candara Light", 1, 36));
+        passOp.setFont(new Font("Candara Light", 1, 24));
 
         //nationalitylabel.set
 //////////
         jbtnLogin.setBackground(new Color(231, 226, 226));
-        jbtnLogin.setFont(new Font("Candara Light", 1, 36)); // NOI18N
+        jbtnLogin.setFont(new Font("Candara Light", 1, 24)); // NOI18N
         jbtnLogin.setText("Search");
         jbtnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -76,10 +78,10 @@ public class Launch extends javax.swing.JFrame {
             }
         });
 
-        refFeild.setFont(new Font("Tahoma", 1, 36)); // NOI18N
+        refFeild.setFont(new Font("Tahoma", 1, 24)); // NOI18N
 
         jbtnExit.setBackground(new Color(231, 226, 226));
-        jbtnExit.setFont(new Font("Candara Light", 1, 34)); // NOI18N
+        jbtnExit.setFont(new Font("Candara Light", 1, 24)); // NOI18N
         jbtnExit.setText("Exit");
         jbtnExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -93,16 +95,16 @@ public class Launch extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(445, 445, 445)///445
+                                .addGap(200, 200, 200)///445
                                 .addComponent(jbtnLogin, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)
-                                .addGap(295, 295, 295)
+                                .addGap(400, 400, 400)
                                 .addComponent(jbtnExit, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))//
                         .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(100, 200, 200)
                                 .addComponent(refOp)
 
-                                .addGap(30, 55, 55)
+                                .addGap(30, 70, 70)
                                 .addComponent(refFeild, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE))
 
                         .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
@@ -112,32 +114,29 @@ public class Launch extends javax.swing.JFrame {
                                 .addComponent(passFeild, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE))
 
                         .addGroup(GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(100, 370, 395)
+                                .addGap(100, 270, 295)
                                 .addComponent(nationalitylabel)
-                                .addGap(0, 50, 52)
+                                .addGap(0, 102, 102)
                                 .addComponent(nationality, GroupLayout.PREFERRED_SIZE, 322, GroupLayout.PREFERRED_SIZE)));
                 ;
         ///////
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(435, 435, 435)
+                                .addGap(150, 150, 150)
                                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
 
                                         .addComponent(refOp)
                                         .addComponent(refFeild, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-                                .addGap(20, 50, 50)
+                                .addGap(70, 70, 70)
                                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                         .addComponent(passOp)
-                                    //    .addGap(20, 50, 50)
                                         .addComponent(passFeild, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(20, 50, 50))
-                                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                               // .addGap(20, 50, 50)
+                                        )
+                                .addGap(20, 20, 20)
+                                        .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                                         .addComponent(nationalitylabel)
-
                                         .addComponent(nationality, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(20, 50, 50)
                                        )
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 469, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -157,7 +156,7 @@ public class Launch extends javax.swing.JFrame {
                         .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new Dimension(1798, 1310));
+        setSize(new Dimension(1200, 800));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -186,12 +185,24 @@ public class Launch extends javax.swing.JFrame {
            }
 
        }
-       else if (passOp.isSelected())
+       else
        {
            final String passport = passFeild.getText();
            final String nationalityText = nationality.getText();
 
 
+           if(passport.length()<1 || passport.length()>12){
+
+
+
+                   JOptionPane.showMessageDialog(this, "wrong passport!");
+                   return;
+           }
+        if(nationalityText.length()!=3){
+
+            JOptionPane.showMessageDialog(this, "wrong nationality format");
+            return;
+                }
            try {
                a = AfisBroker.getApplicants(passport,nationalityText);
            } catch (SQLException s) {
@@ -199,11 +210,7 @@ public class Launch extends javax.swing.JFrame {
                return;
            }
        }
-       else
-       {
-           JOptionPane.showMessageDialog(this, "please choose");
-           return;
-       }
+
 
 
 
@@ -251,9 +258,8 @@ public class Launch extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-                                            public void run() {
-                                                l.setVisible(true);
-                                            }
+            public void run() {
+              l.setVisible(true); }
                                         }
 
         );//
